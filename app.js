@@ -1,18 +1,21 @@
-const mongoose = require('mongoose');
-const logger = require('./logger');
-const express = require('express');
+const mongoose = require("mongoose");
+const logger = require("./logger");
+const express = require("express");
 const app = express();
-const genres = require('./routes/genres');
-const customers = require('./routes/customers');
+const genres = require("./routes/genres");
+const customers = require("./routes/customers");
+const movies = require("./routes/movies");
 
-mongoose.connect('mongodb://localhost/genres')
-.then(() => console.log('Connected to MongoDB...'))
-.catch(err => console.error('Could not connect to MongoDB...', err));
+mongoose
+  .connect("mongodb://localhost/genres")
+  .then(() => console.log("Connected to MongoDB..."))
+  .catch(err => console.error("Could not connect to MongoDB...", err));
 
 app.use(express.json());
 app.use(logger);
-app.use('/api/genres', genres);
-app.use('/api/customers', customers);
+app.use("/api/genres", genres);
+app.use("/api/customers", customers);
+app.use("/api/movies", movies);
 
 const port = process.env.port || 3000;
 app.listen(3000, () => console.log(`Listening on port ${port}....`));
